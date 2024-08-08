@@ -2,15 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\KodyKreskowe;
-use Countable;
+use App\Entity\Barcodes;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Console\Helper\Dumper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use function PHPUnit\Framework\any;
 
 class CodesController extends AbstractController
 {
@@ -21,15 +19,15 @@ class CodesController extends AbstractController
         // jest tutaj jeszcze dużo miejsca na ewentualne poprawki czy nowe funkcjonalności
 
         //połączenie z bazą danych i tabelą kody
-        $repository = $entityManager->getRepository(KodyKreskowe::class);
+        $repository = $entityManager->getRepository(Barcodes::class);
 
         //zmienna do szukania ilości kodów w tabeli
         $allProducts = $repository->findAll();
 
-         for ($i=1; $i <= count($allProducts); $i++)
+         foreach($allProducts as $value)
          { 
             //zmienna odwołująca się do poszczególnego kodu
-            $product = $repository->find($i);
+            $product = $repository->find($value);
            
             //wysyłanie zapytania do api GS1
             $response = $client->request('GET', 'https://mojegs1.pl/api/v2/products', [
@@ -45,7 +43,7 @@ class CodesController extends AbstractController
             // sprawdza czy istnieją informacje o produkcie; kiedy są wtedy pojawia się
             // zagnieżdżona tablica z indyfikatorem '0', co umożliwia wypisanie
             // informacji o produkcji z api, albo że nie ma tego produktu w ich spisie
-             if (array_key_exists(0, $responseArray['data']))
+             if (isset($responseArray['data'][0]))
              {
                 $productInfo = $responseArray['data'][0]['attributes'];
             

@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\KodyKreskowe;
+use App\Entity\Barcodes;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<KodyKreskowe>
  */
-class KodyKreskoweRepository extends ServiceEntityRepository
+class BarcodesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, KodyKreskowe::class);
+        parent::__construct($registry, Barcodes::class);
     }
 
     //    /**
-    //     * @return KodyKreskowe[] Returns an array of KodyKreskowe objects
+    //     * @return Barcodes[] Returns an array of Barcodes objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class KodyKreskoweRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?KodyKreskowe
+    //    public function findOneBySomeField($value): ?Barcodes
     //    {
     //        return $this->createQueryBuilder('k')
     //            ->andWhere('k.exampleField = :val')

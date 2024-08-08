@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\KodyKreskoweRepository;
+use App\Repository\BarcodesRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: KodyKreskoweRepository::class)]
-class KodyKreskowe
+#[ORM\Entity(repositoryClass: BarcodesRepository::class)]
+class Barcodes
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
