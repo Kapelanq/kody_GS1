@@ -7,37 +7,29 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<KodyKreskowe>
+ * @extends ServiceEntityRepository<Barcodes>
+ * @method Post|null find($id, $lockMode = null, $lockVersion = null)
  */
-class BarcodesRepository extends ServiceEntityRepository
+class BarcodesRepository extends ServiceEntityRepository implements BarcodesRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Barcodes::class);
     }
 
-    //    /**
-    //     * @return Barcodes[] Returns an array of Barcodes objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('k')
-    //            ->andWhere('k.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('k.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+        public function findById(int $id): ?Barcodes
+        {
+            return $this->find($id);
+        }
 
-    //    public function findOneBySomeField($value): ?Barcodes
-    //    {
-    //        return $this->createQueryBuilder('k')
-    //            ->andWhere('k.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        public function findAllCodes(): ?Barcodes
+        {
+            return $this->toArray()->findAll();
+        }
+
+        public function flushQuery(): ?Barcodes
+        {
+            return $this->flush();
+        }
+   
 }

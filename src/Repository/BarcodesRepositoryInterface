@@ -1,0 +1,11 @@
+<?php
+namespace App\Repository;
+use App\Entity\Barcodes;
+
+interface BarcodesRepositoryInterface{
+    public function findById(int $id):?Barcodes;
+
+    public function findAllCodes():?Barcodes;
+
+    public function flushQuery():?Barcodes;
+}

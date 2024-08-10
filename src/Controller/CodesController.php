@@ -2,32 +2,27 @@
 
 namespace App\Controller;
 
-use App\Entity\Barcodes;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\BarcodesRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Console\Helper\Dumper;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class CodesController extends AbstractController
 {
     #[Route('/codes', name: 'app_codes')]
-    public function codesManager(EntityManagerInterface $entityManager, HttpClientInterface $client): Response
+    public function codesManager(BarcodesRepositoryInterface $barcodesRepository, HttpClientInterface $client): Response
     {
         // kontroler wymaga tego, żeby w bazie danych znajdowały się już jakieś kody
         // jest tutaj jeszcze dużo miejsca na ewentualne poprawki czy nowe funkcjonalności
 
-        //połączenie z bazą danych i tabelą kody
-        $repository = $entityManager->getRepository(Barcodes::class);
-
-        //zmienna do szukania ilości kodów w tabeli
-        $allProducts = $repository->findAll();
+        //zmienna do szukania ilości kodów w tabel i
+        $allProducts = $barcodesRepository->findAllCodes();
 
          foreach($allProducts as $value)
          { 
             //zmienna odwołująca się do poszczególnego kodu
-            $product = $repository->find($value);
+            $product = $barcodesRepository->findById($value);
            
             //wysyłanie zapytania do api GS1
             $response = $client->request('GET', 'https://mojegs1.pl/api/v2/products', [
@@ -70,7 +65,8 @@ class CodesController extends AbstractController
              {
                 $product->setDescription("Nie ma informacji o tym produkcie w GS1");    
              }
-             $entityManager->flush();
+             dump($barcodesRepository);
+             $barcodesRepository->flushQuery();
          }
 
          //renderuje widok, można tutaj wypisywać dane z bazy w przyszłości
