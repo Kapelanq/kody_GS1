@@ -5,17 +5,14 @@ namespace App\Repository;
 use App\Entity\Barcodes;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Interfaces\BarcodesRepositoryInterface;
 
-/**
- * @extends ServiceEntityRepository<Barcodes>
- * @method Post|null find($id, $lockMode = null, $lockVersion = null)
- */
 class BarcodesRepository extends ServiceEntityRepository implements BarcodesRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Barcodes::class);
-    }
+        public function __construct(ManagerRegistry $registry)
+        {
+            parent::__construct($registry, Barcodes::class);
+        }
 
         public function findById(int $id): ?Barcodes
         {

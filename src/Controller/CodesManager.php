@@ -1,31 +1,34 @@
 <?php
 
 namespace App\Controller;
-
-use App\Repository\BarcodesRepositoryInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Interfaces\BarcodesRepositoryInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class CodesController extends AbstractController
+class CodesManager
 {
-    #[Route('/codes', name: 'app_codes')]
-    public function codesManager(BarcodesRepositoryInterface $barcodesRepository, HttpClientInterface $client): Response
+    public function __construct(
+        private BarcodesRepositoryInterface $interface,
+        private HttpClientInterface $client
+    )
     {
-        // kontroler wymaga tego, żeby w bazie danych znajdowały się już jakieś kody
+        
+    }
+
+    public function makeRequest()
+    {
+         // kontroler wymaga tego, żeby w bazie danych znajdowały się już jakieś kody
         // jest tutaj jeszcze dużo miejsca na ewentualne poprawki czy nowe funkcjonalności
 
         //zmienna do szukania ilości kodów w tabel i
-        $allProducts = $barcodesRepository->findAllCodes();
+        $allProducts = $this->interface->findAllCodes();
 
          foreach($allProducts as $value)
          { 
             //zmienna odwołująca się do poszczególnego kodu
-            $product = $barcodesRepository->findById($value);
+            $product = $this->interface->findById($value);
            
             //wysyłanie zapytania do api GS1
-            $response = $client->request('GET', 'https://mojegs1.pl/api/v2/products', [
+            $response = $this->client->request('GET', 'https://mojegs1.pl/api/v2/products', [
                 'auth_basic' => ['75979', '4857401d9534962a61d764362d46e11e'],
                  'query' => [
                      'filter[keyword]' => $product->getCode(), 
@@ -65,13 +68,9 @@ class CodesController extends AbstractController
              {
                 $product->setDescription("Nie ma informacji o tym produkcie w GS1");    
              }
-             dump($barcodesRepository);
-             $barcodesRepository->flushQuery();
+             dump($this->interface);
+             $this->interface->flushQuery();
          }
 
-         //renderuje widok, można tutaj wypisywać dane z bazy w przyszłości
-        return $this->render('codes/index.html.twig', [
-            'codes' => 'codes',
-        ]);
     }
 }
