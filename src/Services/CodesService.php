@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Services;
 use App\Interfaces\BarcodesRepositoryInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class CodesManager
+class CodesService
 {
     public function __construct(
         private BarcodesRepositoryInterface $barcodesRepository,
@@ -22,7 +22,7 @@ class CodesManager
          foreach($allProducts as $value)
          { 
             //zmienna odwołująca się do poszczególnego kodu
-            $product = $this->barcodesRepository->findById($value);
+            $product = $this->barcodesRepository->findById($value->getId());
            
             //wysyłanie zapytania do api GS1
             $response = $this->client->request('GET', 'https://mojegs1.pl/api/v2/products', [
@@ -65,7 +65,6 @@ class CodesManager
              {
                 $product->setDescription("Nie ma informacji o tym produkcie w GS1");    
              }
-             dump($this->barcodesRepository);
              $this->barcodesRepository->flushQuery();
          }
 

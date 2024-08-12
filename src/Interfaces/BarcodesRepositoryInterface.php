@@ -6,7 +6,7 @@ use App\Entity\Barcodes;
 interface BarcodesRepositoryInterface{
     public function findById(int $id):?Barcodes;
 
-    public function findAllCodes():?Barcodes;
+    public function findAllCodes():?Array;
 
-    public function flushQuery():?Barcodes;
+    public function flushQuery():void;
 }

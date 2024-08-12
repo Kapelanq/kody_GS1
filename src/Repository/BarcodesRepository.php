@@ -9,7 +9,7 @@ use App\Interfaces\BarcodesRepositoryInterface;
 
 class BarcodesRepository extends ServiceEntityRepository implements BarcodesRepositoryInterface
 {
-        public function __construct(ManagerRegistry $registry, private BarcodesRepositoryInterface $interface)
+        public function __construct(ManagerRegistry $registry)
         {
             parent::__construct($registry, Barcodes::class);
         }
@@ -19,14 +19,14 @@ class BarcodesRepository extends ServiceEntityRepository implements BarcodesRepo
             return $this->find($id);
         }
 
-        public function findAllCodes(): ?Barcodes
+        public function findAllCodes(): ?Array
         {
-            return $this->toArray()->findAll();
+            return $this->findAll();
         }
 
-        public function flushQuery(): ?Barcodes
+        public function flushQuery(): void
         {
-            return $this->flush();
+            $this->getEntityManager()->flush();
         }
    
 }
