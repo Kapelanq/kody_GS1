@@ -7,12 +7,9 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class CodesManager
 {
     public function __construct(
-        private BarcodesRepositoryInterface $interface,
+        private BarcodesRepositoryInterface $barcodesRepository,
         private HttpClientInterface $client
-    )
-    {
-        
-    }
+        ){}
 
     public function makeRequest()
     {
@@ -20,12 +17,12 @@ class CodesManager
        
 
         //zmienna do szukania ilości wszystkich kodów w tabeli
-        $allProducts = $this->interface->findAllCodes();
+        $allProducts = $this->barcodesRepository->findAllCodes();
 
          foreach($allProducts as $value)
          { 
             //zmienna odwołująca się do poszczególnego kodu
-            $product = $this->interface->findById($value);
+            $product = $this->barcodesRepository->findById($value);
            
             //wysyłanie zapytania do api GS1
             $response = $this->client->request('GET', 'https://mojegs1.pl/api/v2/products', [
@@ -68,8 +65,8 @@ class CodesManager
              {
                 $product->setDescription("Nie ma informacji o tym produkcie w GS1");    
              }
-             dump($this->interface);
-             $this->interface->flushQuery();
+             dump($this->barcodesRepository);
+             $this->barcodesRepository->flushQuery();
          }
 
     }

@@ -9,7 +9,7 @@ use App\Interfaces\BarcodesRepositoryInterface;
 
 class BarcodesRepository extends ServiceEntityRepository implements BarcodesRepositoryInterface
 {
-        public function __construct(ManagerRegistry $registry)
+        public function __construct(ManagerRegistry $registry, private BarcodesRepositoryInterface $interface)
         {
             parent::__construct($registry, Barcodes::class);
         }

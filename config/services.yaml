@@ -3,12 +3,14 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+
 services:
+    App\Interfaces\BarcodesRepositoryInterface:
+        alias: App\Repository\BarcodesRepository
+        public: true
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-    App\Repository\BarcodesRepository: ~
-    App\Interfaces\BarcodesRepositoryInterface: '@App\Repository\BarcodesRepository'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
