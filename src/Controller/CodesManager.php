@@ -17,9 +17,9 @@ class CodesManager
     public function makeRequest()
     {
          // kontroler wymaga tego, żeby w bazie danych znajdowały się już jakieś kody
-        // jest tutaj jeszcze dużo miejsca na ewentualne poprawki czy nowe funkcjonalności
+       
 
-        //zmienna do szukania ilości kodów w tabel i
+        //zmienna do szukania ilości wszystkich kodów w tabeli
         $allProducts = $this->interface->findAllCodes();
 
          foreach($allProducts as $value)
