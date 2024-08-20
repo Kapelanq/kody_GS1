@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Services;
+
+use App\Entity\Barcodes;
 use App\Interfaces\BarcodesRepositoryInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -11,11 +13,23 @@ class CodesService
         private HttpClientInterface $client
         ){}
 
+    public function displaySingleProductData(int $id): Barcodes
+    {
+        $singleProduct = $this->barcodesRepository->findById($id);
+
+        return $singleProduct;
+    }
+
+    public function displayAllProductsData(): Array
+    {
+        $products = $this->barcodesRepository->findAllCodes();
+        return $products;
+    }
+
     public function makeRequest()
     {
-         // kontroler wymaga tego, żeby w bazie danych znajdowały się już jakieś kody
+        // kontroler wymaga tego, żeby w bazie danych znajdowały się już jakieś kody
        
-
         //zmienna do szukania ilości wszystkich kodów w tabeli
         $allProducts = $this->barcodesRepository->findAllCodes();
 
@@ -67,6 +81,7 @@ class CodesService
              }
              $this->barcodesRepository->flushQuery();
          }
+       
 
     }
 }
