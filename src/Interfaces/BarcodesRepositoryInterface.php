@@ -9,4 +9,6 @@ interface BarcodesRepositoryInterface{
     public function findAllCodes():?Array;
 
     public function flushQuery():void;
+
+    public function persistData(Barcodes $barcode);
 }

@@ -28,5 +28,11 @@ class BarcodesRepository extends ServiceEntityRepository implements BarcodesRepo
         {
             $this->getEntityManager()->flush();
         }
+
+        public function persistData(Barcodes $barcode)
+        {
+            return $this->getEntityManager()->persist($barcode);
+            
+        }
    
 }
