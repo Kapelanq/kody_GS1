@@ -1,0 +1,46 @@
+<div class="table-responsive">
+    <table class="table table-striped table-dark" matSort (matSortChange)="sortData($event)">
+<thead>
+    <tr>
+        <th scope="col" mat-sort-header="id">ID</th>
+        <th scope="col" mat-sort-header="code">Code</th>
+        <th scope="col" mat-sort-header="brandName">Brand Name</th>
+        <th scope="col">Common Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Description Language</th>
+        <th scope="col">GPC Code</th>
+        <th scope="col">Internal Symbol</th>
+        <th scope="col">Last Modification Date</th>
+        <th scope="col">Net Content</th>
+        <th scope="col">Net Content Unit</th>
+        <th scope="col">Product Website</th>
+        <th scope="col">Quality Website</th>
+        <th scope="col">Status</th>
+        <th scope="col">Target Market</th>
+    </tr>
+</thead>
+    <tbody>
+    <tr *ngFor="let item of sortedData">
+        <td>{{item.id}}</td>
+        <td>{{item.code}}</td>
+        <td>{{item.brandName}}</td>
+        <td>{{item.commonName}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.descriptionLanguage}}</td>
+        <td>{{item.gpcCode}}</td>
+        <td>{{item.internalSymbol}}</td>
+        <td>{{item.lastModificationDate}}</td>
+        <td>{{item.netContent}}</td>
+        <td>{{item.netContentUnit}}</td>
+        <!--<td>{{item.packaging}}</td>-->
+        <!--<td>{{item.productImage}}</td>-->
+        <td>{{item.productWebsite}}</td>
+        <td>{{item.qualityDetails}}</td>
+        <td>{{item.status}}</td>
+        <!--<td>{{item.subBrandName}}</td>-->
+        <td>{{item.targetMarket}}</td>
+        <!--<td>{{item.variant}}</td>-->
+    </tr>
+    </tbody>
+</table>
+</div>

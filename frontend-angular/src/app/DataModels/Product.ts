@@ -1,0 +1,23 @@
+export interface Product
+{
+    id:string;
+    code:string;
+    brandName:string;
+    commonName:string;
+    description:string;
+    descriptionLanguage:string;
+    gpcCode:string;
+    internalSymbol:string;
+    lastModificationDate:string;
+    name:string;
+    netContent:string;
+    netContentUnit:string;
+    packaging:string;
+    productImage:string;
+    productWebsite:string;
+    qualityDetails:string;
+    status:string;
+    subBrandName:string;
+    targetMarket:string;
+    variant:string;
+}
