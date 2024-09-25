@@ -19,14 +19,6 @@ class ApplicationController extends AbstractController
     {
         
     }
-    #[Route('/login', name: 'post_login', methods: ['POST'])]
-    public function postLoginUser(): Response
-    {
-      
-         return new Response();
-       
-    }
-
 
     #[Route('/codes', name: 'get_viewCodes', methods: ['GET'])]
     public function getReturnCodesData(): Response
@@ -48,7 +40,7 @@ class ApplicationController extends AbstractController
         $data = $request->getContent();
 
 
-        $this->codesService->addAndUpdateCode($data);
+        $this->codesService->addCode($data);
 
         $response = new Response(
             'Code succesfully added!',

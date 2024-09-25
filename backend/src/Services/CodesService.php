@@ -26,7 +26,7 @@ class CodesService
         return $products;
     }
 
-    public function addAndUpdateCode($code)
+    public function addCode($code)
     {
         $product = new Barcodes();
         $product->setCode($code);
