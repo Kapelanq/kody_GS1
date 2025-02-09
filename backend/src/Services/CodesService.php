@@ -32,7 +32,7 @@ class CodesService
         $product->setCode($code);
 
         $response = $this->client->request('GET', 'https://mojegs1.pl/api/v2/products', [
-            'auth_basic' => ['75979', '4857401d9534962a61d764362d46e11e'],
+            'auth_basic' => ['', ''],
              'query' => [
                  'filter[keyword]' => $code, 
              ]
